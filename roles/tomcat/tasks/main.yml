@@ -1,0 +1,25 @@
+---
+
+- name: Install pre-reqs
+  yum:
+    name: '{{item}}'
+    state: present
+  with_items:
+    - java-1.8.0-openjdk-headless
+    - tomcat
+
+- name: Install Web-app example
+  yum: name=tomcat-webapps state=present
+
+- name: Enable and start service
+  service:
+    name: tomcat
+    enabled: yes
+    state: started
+
+- name: Open Firewall port for tomcat
+  firewalld:
+    port: 8080/tcp
+    permanent: true
+    state: enabled
+  notify: reload firewall

@@ -1,0 +1,8 @@
+---
+# Default Ansible YAML
+
+- name: Tomcat
+  hosts: all
+  remote_user: root
+  roles:
+    - tomcat
