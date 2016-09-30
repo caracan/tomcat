@@ -17,9 +17,16 @@
     enabled: yes
     state: started
 
+- name: Check firewalld present & running
+  shell: rpm -q firewalld && systemctl is-active firewalld
+  register: firewalld_config
+  failed_when: firewalld_config.rc == -1
+  changed_when: no
+
 - name: Open Firewall port for tomcat
   firewalld:
     port: 8080/tcp
     permanent: true
     state: enabled
   notify: reload firewall
+  when: firewalld_config.rc == 0
