@@ -3,6 +3,6 @@
 
 - name: Tomcat
   hosts: all
-  remote_user: root
+  remote_user: centos
   roles:
     - tomcat
